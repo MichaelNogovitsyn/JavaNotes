@@ -23,7 +23,6 @@ import java.util.Locale;
         this(header);
         this.body = body;
 }
-
       public void setId(int id) {
         this.id = id;
     }

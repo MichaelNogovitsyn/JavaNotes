@@ -5,11 +5,11 @@ public class IdGenerator implements Serializable {
     int id;
 
     public IdGenerator() {
-        this.id = 0;
+        this.id = 1;
     }
 
     public int getId() {
-        return id++;
+        return this.id++;
     }
 
     public int idLast() {

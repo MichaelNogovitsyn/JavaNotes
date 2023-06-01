@@ -8,20 +8,29 @@ import java.util.List;
 public class Notes {
     private List<Note> notes = new ArrayList<>();
     private IdGenerator idGenerator = new IdGenerator();
-    public Notes(){
+
+    public Notes() {
     }
+
     public Notes(List<Note> notes) {
         this();
         this.notes = notes;
     }
 
     public boolean addNote(Note newNote) {
-        if ((newNote == null) || (newNote.getId() > idGenerator.getId())) {
+        if ((newNote == null) || (newNote.getId() > idGenerator.idLast())) {
             return false;
         }
-        this.notes.add(newNote);
         newNote.setId(idGenerator.getId());
+        this.notes.add(newNote);
         return true;
+    }
+    public Note findNote(String noteHeader) {
+        for (Note note:this.notes ) {
+            if (note.getHeader().equals(noteHeader))
+            {return note;}
+        }
+        return null;
     }
 
     @Override
@@ -30,7 +39,7 @@ public class Notes {
             StringBuilder sb = new StringBuilder();
             sb.append("Ваши записи:");
             sb.append("\n");
-            for ( Note note : notes) {
+            for (Note note : notes) {
                 sb.append(note.getInfo());
                 sb.append("\n");
             }
