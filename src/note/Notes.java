@@ -2,10 +2,11 @@ package note;
 
 import note.Note;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Notes {
+public class Notes implements Serializable {
     private List<Note> notes = new ArrayList<>();
     private IdGenerator idGenerator = new IdGenerator();
 
