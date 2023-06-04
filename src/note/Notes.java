@@ -1,13 +1,16 @@
 package note;
 
-import note.Note;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-public class Notes implements Serializable {
-    private List<Note> notes = new ArrayList<>();
+@JsonAutoDetect
+public class Notes {
+    public List<Note> notes = new ArrayList<>();
+    @JsonIgnore
     private IdGenerator idGenerator = new IdGenerator();
 
     public Notes() {
@@ -17,7 +20,7 @@ public class Notes implements Serializable {
         this();
         this.notes = notes;
     }
-
+    @JsonIgnore
     public boolean addNote(Note newNote) {
         if ((newNote == null) || (newNote.getId() > idGenerator.idLast())) {
             return false;
@@ -26,6 +29,7 @@ public class Notes implements Serializable {
         this.notes.add(newNote);
         return true;
     }
+    @JsonIgnore
     public Note findNote(String noteHeader) {
         for (Note note:this.notes ) {
             if (note.getHeader().equals(noteHeader))
@@ -33,6 +37,7 @@ public class Notes implements Serializable {
         }
         return null;
     }
+
 
     @Override
     public String toString() {
