@@ -1,18 +1,32 @@
 package note;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+@JsonAutoDetect
+public class Note {
 
- public class Note {
     private int id;
     private String header;
     private String body;
+
     private Date data;
+    @JsonIgnore
     Calendar calendar = new GregorianCalendar(Locale.getDefault());
+    @JsonIgnore
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    Note()
+    {
+        this.header = null;
+        setData();
+    }
     Note(String header)
     {
         this.header = header;
@@ -54,8 +68,10 @@ import java.util.Locale;
     public void setData() {
         this.data = calendar.getTime();
     }
+    @JsonIgnore
     public String getInfo(){
         StringBuilder sb = new StringBuilder();
+        sb.append("id: ");
         sb.append(getId());
         sb.append("; ");
         sb.append(formatter.format(data));
