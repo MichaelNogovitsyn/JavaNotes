@@ -5,19 +5,35 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import note.Notes;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class JsonSerialize {
     ObjectMapper mapper = new ObjectMapper();
-    StringWriter writer;
 
-    public boolean save(StringWriter writer, Notes notes) {
+
+    public boolean save(File file, Notes notes) {
         try {
-            //писать результат сериализации будем во Writer(StringWriter)
-            this.writer = writer;
+            // Запишим
+            FileWriter writer = new FileWriter(file, false);
+                writer.write(notes.toString());
+                writer.flush();
+
+//            FileReader reader = new FileReader(file);
+//
+//            char[] buf = new char[256];
+//            int c;
+//            while ((c = reader.read(buf)) > 0) {
+//                if (c < 256) {
+//                    buf = Arrays.copyOf(buf, c);
+//                }
+//            }
+//            System.out.println("File contain:");
+//            System.out.print(buf);
+
             //это объект Jackson, который выполняет сериализацию
             mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             // сама сериализация: 1-куда, 2-что
-            mapper.writeValue(writer, notes);
+            mapper.writeValue(file, notes);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -25,10 +41,9 @@ public class JsonSerialize {
         }
     }
 
-    public Object load(StringWriter stringWriter) {
+    public Object load(File file) {
         try {
-            //преобразовываем все записанное во StringWriter в строку
-            StringReader reader = new StringReader(stringWriter.toString());
+            FileReader reader = new FileReader(file);
             Object object= mapper.readValue(reader, Notes.class);
             return object;
         } catch (Exception e) {
