@@ -21,7 +21,7 @@ public class Main {
         String body;
         String key = "";
 
-        listnotes = (Notes) jsonSerialize.load(data);
+       // listnotes = (Notes) jsonSerialize.load(data);
 
         while (key != "9") {
             print(" Введите:\n " +
