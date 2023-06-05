@@ -1,5 +1,3 @@
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import note.Note;
 import note.Notes;
 import service.JsonSerialize;
@@ -21,7 +19,7 @@ public class Main {
         String body;
         String key = "";
 
-        listnotes = (Notes) jsonSerialize.load(data);
+       // listnotes = (Notes) jsonSerialize.load(data);
 
         while (key != "9") {
             print(" Введите:\n " +
@@ -58,7 +56,11 @@ public class Main {
                     print(listnotes.toString());
                     break;
                 case "4":
-
+                    System.out.println("Введите искомый заголовок записки: ");
+                    header = scanner.next();
+                    if (listnotes.findNote(header) != null) {
+                        System.out.println(listnotes.findNote(header).getInfo());
+                    } else System.out.println("Такой записи нет");
                     break;
                 case "5":
 
@@ -95,10 +97,7 @@ public class Main {
         listnotes.addNote(note3);
         //System.out.println(listnotes.toString());
 
-        System.out.println("поиск:");
-        if (listnotes.findNote("1") != null) {
-            System.out.println(listnotes.findNote("1").getInfo());
-        } else System.out.println("Такой записи нет");
+
 
         //сохраним в файл
 //        if (jsonSerialize.save(data, listnotes)) {
