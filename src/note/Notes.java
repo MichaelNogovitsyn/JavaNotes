@@ -3,6 +3,7 @@ package note;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import comparator.ComparatorByData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,7 +38,10 @@ public class Notes {
         }
         return null;
     }
-
+    @JsonIgnore
+    public void sortByName() {
+        notes.sort(new ComparatorByData());
+    }
     @Override
     public String toString() {
         if (!(notes.isEmpty())) {

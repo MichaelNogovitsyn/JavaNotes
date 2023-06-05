@@ -39,7 +39,10 @@ public class Main {
         } else System.out.println("Загрузка не удалась");
 
         // выборка по дате
-        System.out.println(note1.getData());
+       listnotes.sortByName();
+        System.out.println("Сортировка : \n" + listnotes.toString());
+
+
     }
 
 
