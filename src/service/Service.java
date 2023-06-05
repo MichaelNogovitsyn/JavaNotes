@@ -1,5 +1,6 @@
 package service;
 
+import note.IdGenerator;
 import note.Notes;
 
 import java.io.File;

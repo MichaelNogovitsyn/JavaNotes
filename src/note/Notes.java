@@ -2,10 +2,9 @@ package note;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import comparator.ComparatorByData;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 @JsonAutoDetect
@@ -37,6 +36,11 @@ public class Notes {
             {return note;}
         }
         return null;
+    }
+
+    @JsonIgnore
+    public void setLastId() {
+        idGenerator.setId(notes.get(notes.size()-1).getId()+1);
     }
     @JsonIgnore
     public void sortByName() {

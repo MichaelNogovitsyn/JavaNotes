@@ -17,6 +17,8 @@ public class Main {
         System.out.println("Hello my friend!");
         Scanner scanner = new Scanner(System.in);
         Service service = new Service();
+        String header;
+        String body;
         String key = "";
 
         listnotes = (Notes) jsonSerialize.load(data);
@@ -38,11 +40,18 @@ public class Main {
 
                 case "1":
                     if  ((listnotes= service.load(listnotes, data))!= null) {
+                        listnotes.setLastId();
                         System.out.println("Загрузка выполнена успешно : \n");
+
                     } else System.out.println("Загрузка не удалась");
                     break;
                 case "2":
-
+                    System.out.println("Введите заголовок заметки");
+                    header= scanner.next();
+                    System.out.println("Введите текст заметки");
+                    body= scanner.next();
+                    Note newNote = new Note(header,body);
+                    listnotes.addNote(newNote);
                     break;
 
                 case "3":

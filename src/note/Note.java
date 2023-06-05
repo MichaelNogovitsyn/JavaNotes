@@ -2,7 +2,7 @@ package note;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
