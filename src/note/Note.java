@@ -71,6 +71,7 @@ public class Note {
     @JsonIgnore
     public String getInfo(){
         StringBuilder sb = new StringBuilder();
+        sb.append("id: ");
         sb.append(getId());
         sb.append("; ");
         sb.append(formatter.format(data));
