@@ -38,7 +38,6 @@ public class Notes {
         return null;
     }
 
-
     @Override
     public String toString() {
         if (!(notes.isEmpty())) {

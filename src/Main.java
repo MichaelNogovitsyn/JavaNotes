@@ -29,13 +29,18 @@ public class Main {
         } else System.out.println("Такой записи нет");
 
         //сохраним в файл
-        if (jsonSerialize.save(data, listnotes)) {
-        } else System.out.println("Запись не удалась");
+//        if (jsonSerialize.save(data, listnotes)) {
+//        } else System.out.println("Запись не удалась");
 
         // Загрузим
         listnotes = (Notes) jsonSerialize.load(data);
         if (listnotes != null) {
             System.out.println("Загрузка выполнена успешно : \n" + listnotes.toString());
         } else System.out.println("Загрузка не удалась");
+
+        // выборка по дате
+        System.out.println(note1.getData());
     }
+
+
 }
