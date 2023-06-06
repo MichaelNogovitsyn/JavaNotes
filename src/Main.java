@@ -86,8 +86,10 @@ public class Main {
                     key = "6";
                     break;
                 case "7":
-                    print("Работа завершена");
-                    key = "6";
+                    //сохраним в файл
+                    if (jsonSerialize.save(data, listnotes)) {
+                        print("Сохранено");
+                    } else print("Сохранение не удалось");
                     break;
                 case "8":
                     print("Работа завершена");
@@ -102,11 +104,6 @@ public class Main {
                     break;
             }
         }
-
-        //сохраним в файл
-//        if (jsonSerialize.save(data, listnotes)) {
-//        } else System.out.println("Запись не удалась");
-
 
         // выборка по дате
         listnotes.sortByName();
