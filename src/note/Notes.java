@@ -43,7 +43,7 @@ public class Notes {
         idGenerator.setId(notes.get(notes.size()-1).getId()+1);
     }
     @JsonIgnore
-    public void sortByName() {
+    public void sortByData() {
         notes.sort(new ComparatorByData());
     }
     @Override

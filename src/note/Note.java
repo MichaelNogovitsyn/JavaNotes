@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+
 @JsonAutoDetect
 public class Note {
 
@@ -22,22 +23,22 @@ public class Note {
     @JsonIgnore
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    Note()
-    {
+    Note() {
         this.header = null;
         setData();
     }
-    Note(String header)
-    {
+
+    Note(String header) {
         this.header = header;
         setData();
     }
 
-    public Note(String header, String body){
+    public Note(String header, String body) {
         this(header);
         this.body = body;
-}
-      public void setId(int id) {
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -68,22 +69,23 @@ public class Note {
     public void setData() {
         this.data = calendar.getTime();
     }
+
     @JsonIgnore
-    public String getInfo(){
+    public int getYear() {
+        return calendar.get(Calendar.YEAR);
+    }
+    @JsonIgnore
+    public void setYear(int year) {
+       calendar.set(year,1,2);
+        this.data = calendar.getTime();
+    }
+    @JsonIgnore
+    public String getInfo() {
         StringBuilder sb = new StringBuilder();
         sb.append("id: ");
         sb.append(getId());
         sb.append("; ");
         sb.append(formatter.format(data));
-        /*sb.append(calendar.get(Calendar.DAY_OF_MONTH));
-        sb.append(".");
-        sb.append(calendar.get(Calendar.MONTH));
-        sb.append(".");
-        sb.append(calendar.get(Calendar.YEAR));
-        sb.append("; ");
-        sb.append(calendar.get(Calendar.HOUR));
-        sb.append(":");
-        sb.append(calendar.get(Calendar.MINUTE));*/
         sb.append("; ");
         sb.append(header);
         sb.append("; ");
