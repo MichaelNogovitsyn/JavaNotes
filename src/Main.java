@@ -1,6 +1,5 @@
 import note.Note;
 import note.Notes;
-import service.JsonSerialize;
 import service.Service;
 
 import java.io.*;
@@ -11,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         File data = new File("data.txt");
         Notes listnotes = new Notes();
-        JsonSerialize jsonSerialize = new JsonSerialize();
+        List<Note> selectedNotes = new ArrayList<>();
         System.out.println("Hello my friend!");
         Scanner scanner = new Scanner(System.in);
         Service service = new Service();
@@ -19,8 +18,8 @@ public class Main {
         String newheader;
         String body;
         String key = "";
-
-        // listnotes = (Notes) jsonSerialize.load(data);
+        int year;
+        String str;
 
         while (key != "9") {
             print(" Введите:\n " +
@@ -55,6 +54,7 @@ public class Main {
 
                 case "3":
                     print(listnotes.toString());
+                    listnotes.sortByData();
                     break;
                 case "4":
                     print("Введите искомый заголовок записки: ");
@@ -75,24 +75,69 @@ public class Main {
                     }
                     print("Введите новый заголовок:");
                     newheader = scanner.next();
-                    print("Введите новый текс:");
+                    print("Введите новый текст:");
                     body = scanner.next();
-                    listnotes.findNote(header).setHeader(newheader);
-                    listnotes.findNote(newheader).setBody(body);
+                    print("Введите новый год:");
+                    str = scanner.next();
+                    try {
+                        year = Integer.parseInt(str);
+                        System.out.println(year);
+                        selectedNotes=service.selection(listnotes,year);
+
+                        for (Note note:selectedNotes)
+                        {
+                            print(note.getInfo());
+                        }
+                        listnotes.findNote(header).setHeader(newheader);
+                        listnotes.findNote(newheader).setBody(body);
+                        listnotes.findNote(newheader).setYear(year);
+                    }
+
+                    catch (NumberFormatException nfe)
+                    {
+                        print("Год введен не корректно ");
+                        print("Записка не сохранена");
+                        break;
+                    }
+
                     print("Записка изменена успешно");
                     break;
                 case "6":
-                    print("Работа завершена");
-                    key = "6";
+                    print("Введите искомый год записей: ");
+                    str = scanner.next();
+                    try {
+                        year = Integer.parseInt(str);
+                        selectedNotes=service.selection(listnotes,year);
+                        if (selectedNotes.isEmpty()){
+                            print("Таких записей нет");
+                            break;}
+                        for (Note note:selectedNotes)
+                        {
+                            print(note.getInfo());
+                        }
+                    }
+                    catch (NumberFormatException nfe)
+                    {
+                        print("Год введен не корректно ");
+                    }
+
                     break;
                 case "7":
-                    print("Работа завершена");
-                    key = "6";
+                    //сохраним в файл
+                    if (service.save(listnotes, data)) {
+                        print("Сохранено");
+                    } else print("Сохранение не удалось");
                     break;
                 case "8":
-                    print("Работа завершена");
-                    key = "6";
+                    print("Введите искомый заголовок записки: ");
+                    header = scanner.next();
+                    if (listnotes.findNote(header) != null) {
+                        print("Запись удалена:");
+                        print(listnotes.findNote(header).getInfo());
+                        listnotes.notes.remove(listnotes.findNote(header));
+                    } else System.out.println("Такой записи нет");
                     break;
+
                 case "9":
                     print("Работа завершена");
                     key = "9";
@@ -102,16 +147,6 @@ public class Main {
                     break;
             }
         }
-
-        //сохраним в файл
-//        if (jsonSerialize.save(data, listnotes)) {
-//        } else System.out.println("Запись не удалась");
-
-
-        // выборка по дате
-        listnotes.sortByName();
-        System.out.println("Сортировка : \n" + listnotes.toString());
-
     }
 
     public static void print(String text) {
