@@ -16,10 +16,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Service service = new Service();
         String header;
+        String newheader;
         String body;
         String key = "";
 
-       // listnotes = (Notes) jsonSerialize.load(data);
+        // listnotes = (Notes) jsonSerialize.load(data);
 
         while (key != "9") {
             print(" Введите:\n " +
@@ -37,18 +38,18 @@ public class Main {
             switch (key) {
 
                 case "1":
-                    if  ((listnotes= service.load(listnotes, data))!= null) {
+                    if ((listnotes = service.load(listnotes, data)) != null) {
                         listnotes.setLastId();
                         System.out.println("Загрузка выполнена успешно : \n");
 
                     } else System.out.println("Загрузка не удалась");
                     break;
                 case "2":
-                    System.out.println("Введите заголовок заметки");
-                    header= scanner.next();
-                    System.out.println("Введите текст заметки");
-                    body= scanner.next();
-                    Note newNote = new Note(header,body);
+                    print("Введите заголовок заметки");
+                    header = scanner.next();
+                    print("Введите текст заметки");
+                    body = scanner.next();
+                    Note newNote = new Note(header, body);
                     listnotes.addNote(newNote);
                     break;
 
@@ -56,14 +57,29 @@ public class Main {
                     print(listnotes.toString());
                     break;
                 case "4":
-                    System.out.println("Введите искомый заголовок записки: ");
+                    print("Введите искомый заголовок записки: ");
                     header = scanner.next();
                     if (listnotes.findNote(header) != null) {
-                        System.out.println(listnotes.findNote(header).getInfo());
+                        print(listnotes.findNote(header).getInfo());
                     } else System.out.println("Такой записи нет");
                     break;
                 case "5":
-
+                    print("Введите заголовок заметки которую вы хотите изменить:");
+                    header = scanner.next();
+                    if (listnotes.findNote(header) != null) {
+                        print("Ваша записка:");
+                        print(listnotes.findNote(header).getInfo());
+                    } else {
+                        System.out.println("Такой записи нет");
+                        break;
+                    }
+                    print("Введите новый заголовок:");
+                    newheader = scanner.next();
+                    print("Введите новый текс:");
+                    body = scanner.next();
+                    listnotes.findNote(header).setHeader(newheader);
+                    listnotes.findNote(newheader).setBody(body);
+                    print("Записка изменена успешно");
                     break;
                 case "6":
                     print("Работа завершена");
@@ -86,18 +102,6 @@ public class Main {
                     break;
             }
         }
-
-        Note note1 = new Note("1", "asdas");
-        Note note2 = new Note("2", "text");
-        Note note3 = new Note("3", "text Some");
-
-
-        listnotes.addNote(note1);
-        listnotes.addNote(note2);
-        listnotes.addNote(note3);
-        //System.out.println(listnotes.toString());
-
-
 
         //сохраним в файл
 //        if (jsonSerialize.save(data, listnotes)) {
