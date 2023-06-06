@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import comparator.ComparatorByData;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 @JsonAutoDetect
 public class Notes {
     public List<Note> notes = new ArrayList<>();

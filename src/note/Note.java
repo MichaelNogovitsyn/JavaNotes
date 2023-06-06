@@ -2,6 +2,7 @@ package note;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 import java.text.SimpleDateFormat;
@@ -18,9 +19,9 @@ public class Note {
     private String body;
 
     private Date data;
-    @JsonIgnore
+    @JsonProperty
     Calendar calendar = new GregorianCalendar(Locale.getDefault());
-    @JsonIgnore
+    //@JsonIgnore
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     Note() {

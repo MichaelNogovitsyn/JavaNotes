@@ -53,8 +53,8 @@ public class Main {
                     break;
 
                 case "3":
-                    print(listnotes.toString());
                     listnotes.sortByData();
+                    print(listnotes.toString());
                     break;
                 case "4":
                     print("Введите искомый заголовок записки: ");
